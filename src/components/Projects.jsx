@@ -1,28 +1,6 @@
 // src/components/Projects.jsx
 import { Link } from "react-router-dom";
-import uiux from "../assets/uiux.png";
-
-// Data project terpusat agar mudah dirawat
-const projects = [
-  {
-    id: 1,
-    title: "Project 1",
-    image: uiux,
-    description: "Sebuah project UI/UX yang saya buat untuk latihan desain dan prototyping.",
-  },
-  {
-    id: 2,
-    title: "Project 2",
-    image: null,
-    description: "Deskripsi singkat project kedua (masih kosong).",
-  },
-  {
-    id: 3,
-    title: "Project 3",
-    image: null,
-    description: "Deskripsi singkat project ketiga (masih kosong).",
-  },
-];
+import { projects } from "../data/projects";
 
 const cardStyle = {
   width: "300px",
@@ -66,7 +44,7 @@ function Projects() {
         }}
       >
         {projects.map((p) => (
-          <Link to={`/projects/${p.id}`} style={cardStyle} key={p.id}>
+          <Link to={`/projects/${p.id}`} style={cardStyle} key={p.id} title={p.title}>
             {p.image ? (
               <img
                 src={p.image}
@@ -77,7 +55,16 @@ function Projects() {
               <div style={imageWrapperStyle}>No Image</div>
             )}
             <h3 style={{ padding: "10px", margin: 0 }}>{p.title}</h3>
-            <p style={{ padding: "0 10px 20px", marginTop: "8px" }}>{p.description}</p>
+            <p style={{ padding: "0 10px 8px", marginTop: "8px", fontSize: '0.85rem', lineHeight: 1.4 }}>
+              {p.description}
+            </p>
+            {p.stack && (
+              <ul style={{listStyle:'none',padding:'0 10px 16px',margin:0,display:'flex',gap:'6px',flexWrap:'wrap'}}>
+                {p.stack.slice(0,3).map(tag => (
+                  <li key={tag} style={{background:'#1f1f1f',border:'1px solid #262626',padding:'4px 8px',borderRadius:'999px',fontSize:'0.6rem',letterSpacing:'.5px'}}>{tag}</li>
+                ))}
+              </ul>
+            )}
             {/* Spacer flex to push content if diperlukan */}
           </Link>
         ))}
